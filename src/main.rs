@@ -39,7 +39,7 @@ fn reply(json: serde_json::Value, status: impl Into<Option<StatusCode>>) -> With
 
 fn service(value: String, auth: Option<String>) -> impl Reply {
     // nice security, isn't it? :D
-    let is_premium = auth.map(|a| a == "Bearer IAMAPREMIUMUSER").unwrap_or(false);
+    let is_premium = auth.map(|a| a == "Bearer IAMAPREMIUMUSER" || a == "Bearer IAMPREMIUMUSER").unwrap_or(false);
 
     let value = match percent_decode(value.as_bytes()).decode_utf8() {
         Ok(v) => v,
