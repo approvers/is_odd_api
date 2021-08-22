@@ -1,6 +1,6 @@
 mod morse;
 
-use crate::morse::morse_code::morse_code_translate;
+use crate::morse::morse_code_translate;
 use kanaria::string::UCSStr;
 use kanaria::utils::ConvertTarget;
 use num_bigint::BigUint;
