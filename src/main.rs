@@ -61,7 +61,7 @@ fn service(value: String, auth: Option<String>) -> impl Reply {
     if !is_premium && result.parsed_num >= MAX_FREE_VALUE {
         return reply(
             json!({
-                "error": format!("このAPIを{}以上の数に対して使用するには、プレミアムユーザーである必要があります。", MAX_FREE_VALUE)
+                "error": format!("このAPIは、一般ユーザーは絶対値{}未満の数に対してのみ使用できます", MAX_FREE_VALUE),
             }),
             warp::http::StatusCode::PAYMENT_REQUIRED,
         );
