@@ -10,13 +10,14 @@
 
 ## 使う
 
-`https://host/api/isOdd/<number>`
+`https://isodd.api.kawaemon.dev/api/isodd`
+
 数値の偶奇を取得します．
 
 ## 試す
 
 ```bash
-curl https://host/api/isOdd/472389
+curl https://isodd.api.kawaemon.dev/api/isodd
 curl https://host/api/isOdd/%E7%99%BE%E4%B8%83%E5%8D%81%E5%9B%9B
 ```
 
