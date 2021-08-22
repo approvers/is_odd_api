@@ -88,6 +88,7 @@ fn service(value: String, auth: Option<String>) -> impl Reply {
     reply(reply_json, None)
 }
 
+#[derive(PartialEq, Eq, Debug)]
 struct IsOddResult {
     parsed_num: BigUint,
     is_negative: bool,
@@ -128,8 +129,84 @@ fn is_odd(num: impl Into<String>) -> Result<IsOddResult, ()> {
 
 #[test]
 fn is_odd_test() {
-    assert_eq!(is_odd("12345"), Ok((12345u32.into(), true)));
-    assert_eq!(is_odd("1234"), Ok((1234u32.into(), false)));
-    assert_eq!(is_odd("千二百三十四"), Ok((1234u32.into(), false)));
-    assert_eq!(is_odd("千二百三十"), Ok((1230u32.into(), false)));
+    assert_eq!(
+        is_odd("12345"),
+        Ok(IsOddResult {
+            parsed_num: 12345u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("1234"),
+        Ok(IsOddResult {
+            parsed_num: 1234u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd("-12345"),
+        Ok(IsOddResult {
+            parsed_num: 12345u32.into(),
+            is_negative: true,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("-1234"),
+        Ok(IsOddResult {
+            parsed_num: 1234u32.into(),
+            is_negative: true,
+            is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd("千二百三十四"),
+        Ok(IsOddResult {
+            parsed_num: 1234u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd("千二百三十"),
+        Ok(IsOddResult {
+            parsed_num: 1230u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd("I"),
+        Ok(IsOddResult {
+            parsed_num: 1u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("IV"),
+        Ok(IsOddResult {
+            parsed_num: 4u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd("１"),
+        Ok(IsOddResult {
+            parsed_num: 1u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("４"),
+        Ok(IsOddResult {
+            parsed_num: 4u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
 }
