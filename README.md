@@ -17,8 +17,8 @@
 ## 試す
 
 ```bash
-curl https://isodd.api.kawaemon.dev/api/isodd
-curl https://host/api/isOdd/%E7%99%BE%E4%B8%83%E5%8D%81%E5%9B%9B
+curl https://isodd.api.kawaemon.dev/api/isodd/1234
+curl https://isodd.api.kawaemon.dev/api/isodd/%E7%99%BE%E4%B8%83%E5%8D%81%E5%9B%9B
 ```
 
 ※実行には curl が必要です．
