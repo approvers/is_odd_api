@@ -1,3 +1,6 @@
+mod morse;
+
+use crate::morse::morse_code::morse_code_translate;
 use kanaria::string::UCSStr;
 use kanaria::utils::ConvertTarget;
 use num_bigint::BigUint;
@@ -110,6 +113,7 @@ fn is_odd(num: impl Into<String>) -> Result<IsOddResult, ()> {
         .or_else(|_| kanji_number_parser::parse(&num))
         .or_else(|_| roman::from(&num).map(|x| BigUint::from(x as u32)).ok_or(()))
         .or_else(|_| counting_rod_numerals(&num))
+        .or_else(|_| morse_code_translate(&num))
         .or_else(|_| {
             BigUint::from_str(
                 &UCSStr::from_str(&num)
@@ -240,6 +244,66 @@ fn is_odd_test() {
             parsed_num: 8u32.into(),
             is_negative: false,
             is_odd: false,
+        })
+    );
+    assert_eq!(
+        is_odd(".-"),
+        Ok(IsOddResult {
+            parsed_num: 1u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd(".- .-"),
+        Ok(IsOddResult {
+            parsed_num: 11u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+
+    assert_eq!(
+        is_odd("..-"),
+        Ok(IsOddResult {
+            parsed_num: 2u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+
+    assert_eq!(
+        is_odd(".- .- .- .- .- .- .- .- .- .-"),
+        Ok(IsOddResult {
+            parsed_num: 1111111111u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+
+    assert_eq!(
+        is_odd(".- "),
+        Ok(IsOddResult {
+            parsed_num: 1u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+
+    assert_eq!(
+        is_odd(".----"),
+        Ok(IsOddResult {
+            parsed_num: 1u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd(".---- ..- ..--- ----. ----- - - ----. ...-- ...-"),
+        Ok(IsOddResult {
+            parsed_num: 1229000933u32.into(),
+            is_negative: false,
+            is_odd: true,
         })
     );
 }
