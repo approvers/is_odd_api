@@ -6,6 +6,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+kanaria = "0.2.0"
+kanji-number-parser = { git = "https://github.com/kawaemon/kanji-number-parser.git" }
+num-bigint = "0.4.0"
+percent-encoding = "2.1.0"
+roman = "0.1.6"
 serde_json = "1.0.66"
 tokio = { version = "1.10.0", features = ["full"] }
 tracing = "0.1.26"
