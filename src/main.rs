@@ -109,6 +109,7 @@ fn is_odd(num: impl Into<String>) -> Result<IsOddResult, ()> {
     let num = BigUint::from_str(&num)
         .or_else(|_| kanji_number_parser::parse(&num))
         .or_else(|_| roman::from(&num).map(|x| BigUint::from(x as u32)).ok_or(()))
+        .or_else(|_| counting_rod_numerals(&num))
         .or_else(|_| {
             BigUint::from_str(
                 &UCSStr::from_str(&num)
@@ -209,4 +210,71 @@ fn is_odd_test() {
             is_odd: false,
         })
     );
+    assert_eq!(
+        is_odd("𝍤"),
+        Ok(IsOddResult {
+            parsed_num: 5u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("𝍠𝍡𝍢𝍣𝍤𝍥𝍦𝍧𝍨𝍩𝍪𝍫𝍬𝍭𝍮𝍯𝍰𝍱𝍲𝍳𝍴𝍵𝍶𝍷𝍸"),
+        Ok(IsOddResult {
+            parsed_num: 111u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("𝍶𝍶𝍶𝍵"),
+        Ok(IsOddResult {
+            parsed_num: 19u32.into(),
+            is_negative: false,
+            is_odd: true,
+        })
+    );
+    assert_eq!(
+        is_odd("𝍧"),
+        Ok(IsOddResult {
+            parsed_num: 8u32.into(),
+            is_negative: false,
+            is_odd: false,
+        })
+    );
+}
+
+fn counting_rod_numerals(s: &str) -> Result<BigUint, ()> {
+    let mut num: u32 = 0;
+    for c in s.chars() {
+        num += match c {
+            '𝍠' => 1,
+            '𝍡' => 2,
+            '𝍢' => 3,
+            '𝍣' => 4,
+            '𝍤' => 5,
+            '𝍥' => 6,
+            '𝍦' => 7,
+            '𝍧' => 8,
+            '𝍨' => 9,
+            '𝍩' => 1,
+            '𝍪' => 2,
+            '𝍫' => 3,
+            '𝍬' => 4,
+            '𝍭' => 5,
+            '𝍮' => 6,
+            '𝍯' => 7,
+            '𝍰' => 8,
+            '𝍱' => 9,
+            '𝍲' => 1,
+            '𝍳' => 2,
+            '𝍴' => 3,
+            '𝍵' => 4,
+            '𝍶' => 5,
+            '𝍷' => 1,
+            '𝍸' => 5,
+            _ => return Err(()),
+        }
+    }
+    Ok(BigUint::from(num))
 }
