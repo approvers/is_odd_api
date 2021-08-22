@@ -113,7 +113,7 @@ fn is_odd(num: impl Into<String>) -> Result<IsOddResult, ()> {
         .or_else(|_| kanji_number_parser::parse(&num))
         .or_else(|_| roman::from(&num).map(|x| BigUint::from(x as u32)).ok_or(()))
         .or_else(|_| counting_rod_numerals(&num))
-        .or_else(|_| morse_code_translate(&num))
+        .or_else(|_| morse_code_translate(&num).ok_or(()))
         .or_else(|_| {
             BigUint::from_str(
                 &UCSStr::from_str(&num)

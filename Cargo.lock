@@ -434,6 +434,7 @@ dependencies = [
  "kanaria",
  "kanji-number-parser",
  "num-bigint",
+ "once_cell",
  "percent-encoding",
  "roman",
  "serde_json",

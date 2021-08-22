@@ -9,6 +9,7 @@ edition = "2018"
 kanaria = "0.2.0"
 kanji-number-parser = { git = "https://github.com/kawaemon/kanji-number-parser.git" }
 num-bigint = "0.4.0"
+once_cell = "1.8.0"
 percent-encoding = "2.1.0"
 roman = "0.1.6"
 serde_json = "1.0.66"
