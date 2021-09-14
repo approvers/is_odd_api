@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 
-![logo](https://imgur.com/SzMNZFl.png)
+[![logo](https://imgur.com/SzMNZFl.png)](https://isoddapi.studio.site/)
 
 </div>
 
