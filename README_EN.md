@@ -6,7 +6,7 @@
 
 [Japanese](./README.md) ｜ [English](./README_EN.md)
 
-This API can determine even and odd numbers of Arabic numerals, double-byte Arabic numerals, Roman numerals, and Chinese numerals up to 1,000,000.
+This API can determine even and odd numbers of Arabic numerals, full-width Arabic numerals, Roman numerals, and Chinese numerals up to 1,000,000.
 
 [Check the site for details.](https://isoddapi.studio.site/)
 
@@ -16,7 +16,7 @@ This API can determine even and odd numbers of Arabic numerals, double-byte Arab
 
 Check the site for details.
 
-## 試す
+## Try
 
 ```bash
 curl https://isodd.api.kawaemon.dev/api/isodd/1234
